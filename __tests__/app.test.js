@@ -8,7 +8,7 @@ const newActor = {
   name: 'Bob Loblaw',
   dob: '1984-04-15',
   pob: 'Timbuktu'
-}
+};
 
 describe('ripebanana routes', () => {
   beforeEach(() => {
