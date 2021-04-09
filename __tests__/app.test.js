@@ -12,7 +12,7 @@ describe('ripebanana routes', () => {
   it('adds a new actor to the db', () => {
     const newActor = {
       name: 'Bob Loblaw',
-      dob: '04/15/1984',
+      dob: '1984-04-15',
       pob: 'Timbuktu'
     }
 
