@@ -14,9 +14,6 @@ describe('ripebanana routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
-  beforeEach(async () => {
-    await Actor.create(newActor);
-  });
 
   it('adds a new actor to the db', () => {
     const newActor2 = {
@@ -33,8 +30,8 @@ describe('ripebanana routes', () => {
       });
   });
   it('get actor by ID', async () => {
+    Actor.create(newActor);
     const res = await request(app).get('/api/v1/actors/1');
-
     expect(res.body).toEqual({ id: expect.any(Number), ...newActor });
   });
 
@@ -45,6 +42,7 @@ describe('ripebanana routes', () => {
       pob: 'Timbuktu',
     };
 
+    Actor.create(newActor);
     Actor.create(newActor2);
 
     return request(app)
