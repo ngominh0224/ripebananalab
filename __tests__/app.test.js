@@ -37,4 +37,23 @@ describe('ripebanana routes', () => {
 
     expect(res.body).toEqual({ id: expect.any(Number), ...newActor });
   });
+
+  it('get all actors array', () => {
+    const newActor2 = {
+      name: 'Robert Loblaw',
+      dob: '1984-04-15',
+      pob: 'Timbuktu',
+    };
+
+    Actor.create(newActor2);
+
+    return request(app)
+      .get('/api/v1/actors')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { id: expect.any(Number), ...newActor },
+          { id: expect.any(Number), ...newActor2 },
+        ]);
+      });
+  });
 });
