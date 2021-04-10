@@ -14,8 +14,8 @@ describe('ripebanana routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
-  beforeEach(() => {
-    Actor.create(newActor);
+  beforeEach(async () => {
+    await Actor.create(newActor);
   });
 
   it('adds a new actor to the db', () => {
