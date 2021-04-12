@@ -41,13 +41,15 @@ describe('studios test', () => {
 
     expect(res.body).toEqual({ id: expect.any(Number), ...newStudio });
   });
-  it('gets all studios', async ()=>{
+  it('gets all studios', async () => {
     Studio.create(newStudio);
     Studio.create(newStudio2);
 
-    const res = await request(app)
-    .get('/api/v1/studios')
+    const res = await request(app).get('/api/v1/studios');
 
-    expect(res.body).toEqual([{ id: expect.any(Number), ...newStudio },{ id: expect.any(Number), ...newStudio2 }])
-  })
+    expect(res.body).toEqual([
+      { id: expect.any(Number), ...newStudio },
+      { id: expect.any(Number), ...newStudio2 },
+    ]);
+  });
 });

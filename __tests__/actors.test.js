@@ -42,7 +42,7 @@ describe('ripebanana routes', () => {
       pob: 'Timbuktu',
     };
 
-    Actor.bulkCreate([newActor, newActor2])
+    Actor.bulkCreate([newActor, newActor2]);
     // Actor.create(newActor);
     // Actor.create(newActor2);
 
