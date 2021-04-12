@@ -10,7 +10,7 @@ const newActor = {
   pob: 'Timbuktu',
 };
 
-describe('ripebanana routes', () => {
+describe.skip('ripebanana routes', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });
