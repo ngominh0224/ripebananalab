@@ -9,6 +9,11 @@ const newStudio = {
   state: 'Oregon',
   country: 'United States',
 };
+const newStudio2 = {
+  name: 'Warner Bros',
+  state: 'California',
+  country: 'United States',
+};
 
 describe('studios test', () => {
   beforeEach(() => {
@@ -36,4 +41,13 @@ describe('studios test', () => {
 
     expect(res.body).toEqual({ id: expect.any(Number), ...newStudio });
   });
+  it('gets all studios', async ()=>{
+    Studio.create(newStudio);
+    Studio.create(newStudio2);
+
+    const res = await request(app)
+    .get('/api/v1/studios')
+
+    expect(res.body).toEqual([{ id: expect.any(Number), ...newStudio },{ id: expect.any(Number), ...newStudio2 }])
+  })
 });

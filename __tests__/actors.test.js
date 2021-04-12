@@ -42,8 +42,9 @@ describe('ripebanana routes', () => {
       pob: 'Timbuktu',
     };
 
-    Actor.create(newActor);
-    Actor.create(newActor2);
+    Actor.bulkCreate([newActor, newActor2])
+    // Actor.create(newActor);
+    // Actor.create(newActor2);
 
     return request(app)
       .get('/api/v1/actors')
