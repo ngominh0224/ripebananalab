@@ -35,7 +35,7 @@ describe('ripebanana routes', () => {
     expect(res.body).toEqual({ id: expect.any(Number), ...newActor });
   });
 
-  it('get all actors array', () => {
+  it('get all actors array', async () => {
     const newActor2 = {
       name: 'Robert Loblaw',
       dob: '1984-04-15',
