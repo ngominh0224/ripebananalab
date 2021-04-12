@@ -52,7 +52,7 @@ describe('Review tests', () => {
     return request(app)
       .delete('/api/v1/reviews/1')
       .then((res) => {
-        expect(res.body).toEqual({ id: expect.any(Number), ...newReview })
+        expect(res.body).toEqual({ })
       })
   })
 });
