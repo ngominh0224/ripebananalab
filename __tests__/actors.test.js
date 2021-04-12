@@ -30,7 +30,7 @@ describe('ripebanana routes', () => {
       });
   });
   it('get actor by ID', async () => {
-    Actor.create(newActor);
+    await Actor.create(newActor);
     const res = await request(app).get('/api/v1/actors/1');
     expect(res.body).toEqual({ id: expect.any(Number), ...newActor });
   });
@@ -42,7 +42,7 @@ describe('ripebanana routes', () => {
       pob: 'Timbuktu',
     };
 
-    Actor.bulkCreate([newActor, newActor2])
+    await Actor.bulkCreate([newActor, newActor2]);
     // Actor.create(newActor);
     // Actor.create(newActor2);
 
