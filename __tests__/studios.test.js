@@ -15,7 +15,7 @@ const newStudio2 = {
   country: 'United States',
 };
 
-describe('studios test', () => {
+describe.skip('studios test', () => {
   beforeEach(() => {
     return db.sync({ force: true });
   });

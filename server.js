@@ -1,4 +1,5 @@
 const app = require('./lib/app');
+require('./lib/models/associations')
 
 const PORT = process.env.PORT || 7890;
 
