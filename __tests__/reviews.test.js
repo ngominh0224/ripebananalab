@@ -34,7 +34,7 @@ describe('Review tests', () => {
   });
 
   it('gets all reviews', () => {
-    Review.bulkCreate([newReview, newReview2]);
+    await Review.bulkCreate([newReview, newReview2]);
 
     return request(app)
       .get('/api/v1/reviews')
@@ -47,7 +47,7 @@ describe('Review tests', () => {
   })
 
   it('deletes a review', () => {
-    Review.create(newReview);
+    await Review.create(newReview);
     
     return request(app)
       .delete('/api/v1/reviews/1')
