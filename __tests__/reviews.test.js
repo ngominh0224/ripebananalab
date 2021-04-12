@@ -32,4 +32,14 @@ describe('Review tests', () => {
         expect(res.body).toEqual({ id: expect.any(Number), ...newReview3});
       })
   });
+
+  it('gets a review by id', () => {
+    Review.create(newReview);
+
+    return request(app)
+      .get('/api/v1/reviews/1')
+      .then((res) => {
+        expect(res.body).toEqual({ id: 1, ...newReview })
+      })
+  })
 });
