@@ -51,7 +51,7 @@ describe('reviewers test', () => {
     ]);
   });
 
-  it('updates a Reviewer via PATCH', async () => {
+  it('updates a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',
@@ -66,6 +66,18 @@ describe('reviewers test', () => {
           name: 'Bob Doe',
           company: 'Yelp',
         });
+      });
+  });
+
+  it('deletes a Reviewer', async () => {
+    await Reviewer.create({
+      name: 'Bob Doe',
+      company: 'IMDB',
+    });
+    return request(app)
+      .delete('/api/v1/reviewers/1')
+      .then((res) => {
+        expect(res.body).toEqual({ success: 'Empty' });
       });
   });
 });
