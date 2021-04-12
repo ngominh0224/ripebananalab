@@ -33,15 +33,15 @@ describe('reviewers test', () => {
   });
 
   it('get reviewer by ID', async () => {
-    Reviewer.create(newReviewer);
+    await Reviewer.create(newReviewer);
     const res = await request(app).get('/api/v1/reviewers/1');
 
     expect(res.body).toEqual({ id: expect.any(Number), ...newReviewer });
   });
 
   it('gets all reviewers', async () => {
-    Reviewer.create(newReviewer);
-    Reviewer.create(newReviewer2);
+    await Reviewer.create(newReviewer);
+    await Reviewer.create(newReviewer2);
 
     const res = await request(app).get('/api/v1/reviewers');
 
