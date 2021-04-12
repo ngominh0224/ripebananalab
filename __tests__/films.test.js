@@ -36,4 +36,12 @@ describe('film routes', () => {
     .send(newFilm2)
     expect(data.body).toEqual({ id: expect.any(Number), ...newFilm2 });
   });
+
+  it('gets a film by id', async () => {
+    await Film.create(newFilm2)
+    const data = await request(app)
+    .get('/api/v1/films/2')
+    expect(data.body).toEqual({ id: expect.any(Number), ...newFilm2 });
+  });
+
 })
