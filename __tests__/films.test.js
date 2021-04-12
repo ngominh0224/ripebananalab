@@ -6,7 +6,7 @@ const Film = require('../lib/models/Film');
 
 const newFilm = {
   title: 'Jurassic Park',
-  studio: 'Paramount',
+  // studio: 'Paramount',
   released: 1993,
   // cast: [
   //   {role: 'Dr. Grant', actor: 1},
@@ -49,7 +49,7 @@ describe('film routes', () => {
     await Film.create(newFilm2)
     const data = await request(app)
     .get('/api/v1/films')
-    expect(data.body).toEqual({ id: expect.any(Number), ...newFilm },{ id: expect.any(Number), ...newFilm2 });
+    expect(data.body).toEqual([{ id: expect.any(Number), ...newFilm },{ id: expect.any(Number), ...newFilm2 }]);
   });
 
 })
