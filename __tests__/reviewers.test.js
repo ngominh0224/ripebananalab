@@ -1,6 +1,5 @@
 require('../lib/models/associations');
 const db = require('../lib/utils/database');
-const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
@@ -66,7 +65,7 @@ describe('reviewers test', () => {
     });
   });
 
-  it.skip('gets all reviewers', async () => {
+  it('gets all reviewers', async () => {
     await Reviewer.create(newReviewer);
     await Reviewer.create(newReviewer2);
 
@@ -78,7 +77,7 @@ describe('reviewers test', () => {
     ]);
   });
 
-  it.skip('updates a Reviewer', async () => {
+  it('updates a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',
@@ -96,7 +95,7 @@ describe('reviewers test', () => {
       });
   });
 
-  it.skip('deletes a Reviewer', async () => {
+  it('deletes a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',
