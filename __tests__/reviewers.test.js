@@ -1,3 +1,4 @@
+require('../lib/models/associations');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');

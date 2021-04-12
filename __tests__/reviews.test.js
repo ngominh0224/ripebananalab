@@ -33,7 +33,7 @@ describe('Review tests', () => {
       })
   });
 
-  it('gets all reviews', () => {
+  it('gets all reviews', async() => {
     await Review.bulkCreate([newReview, newReview2]);
 
     return request(app)
@@ -46,7 +46,7 @@ describe('Review tests', () => {
       })
   })
 
-  it('deletes a review', () => {
+  it('deletes a review', async () => {
     await Review.create(newReview);
     
     return request(app)
