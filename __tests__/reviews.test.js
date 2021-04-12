@@ -22,24 +22,27 @@ describe('Review tests', () => {
   it('adds a new review to the db', () => {
     const newReview3 = {
       rating: 1,
-      review: 'worst movie ever made'
+      review: 'worst movie ever made',
     };
 
     return request(app)
       .post('/api/v1/reviews')
       .send(newReview3)
       .then((res) => {
-        expect(res.body).toEqual({ id: expect.any(Number), ...newReview3});
+        expect(res.body).toEqual({ id: expect.any(Number), ...newReview3 });
       })
   });
 
-  it('gets a review by id', () => {
-    Review.create(newReview);
+  it('gets all reviews', () => {
+    Review.bulkCreate([newReview, newReview2]);
 
     return request(app)
-      .get('/api/v1/reviews/1')
+      .get('/api/v1/reviews')
       .then((res) => {
-        expect(res.body).toEqual({ id: 1, ...newReview })
+        expect(res.body).toEqual([
+          { id: expect.any(Number), ...newReview },
+          { id: expect.any(Number), ...newReview2 }
+        ])
       })
   })
 });
