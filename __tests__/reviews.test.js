@@ -23,11 +23,16 @@ const newReviewer = {
   company: 'IMDB',
 }
 
-describe('Review tests', () => {
-  beforeEach(() => {
+describe.skip('Review tests', () => {
+  beforeEach( async () => {
+    await db.connectionManager.initPools()
     return db.sync({ force: true });
   });
   
+  afterAll( async () => {
+    await db.close();
+  })
+
   it('adds a new review to the db', async () => {
     const reviewer = await Reviewer.create(newReviewer)
     

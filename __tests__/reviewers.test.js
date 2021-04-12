@@ -1,45 +1,71 @@
+require('../lib/models/associations');
+const db = require('../lib/utils/database');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const db = require('../lib/utils/database');
 const Reviewer = require('../lib/models/Reviewer');
+const reviews = require('../lib/controllers/reviews');
+const Review = require('../lib/models/Review');
 
 const newReviewer = {
   name: 'Bob Doe',
   company: 'IMDB',
 };
-const newReviewer2 = {
-  name: 'Jane Lewis',
-  company: 'Rotten Tomatoes',
-};
+// const newReviewer2 = {
+//   name: 'Jane Lewis',
+//   company: 'Rotten Tomatoes',
+// };
 
-describe.skip('reviewers test', () => {
-  beforeEach(() => {
-    return db.sync({ force: true });
+describe('reviewers test', () => {
+  beforeEach( async () => {
+    console.log('dropping tables!');
+    await db.connectionManager.initPools()
+    return await db.sync({ force: true });
   });
 
-  it('adds a new reviewer to the db', () => {
-    const newReviewer2 = {
+  afterAll( async () => {
+    await db.close();
+  })
+
+  it.skip('adds a new reviewer to the db', () => {
+    const newReviewer3 = {
       name: 'Jane Lewis',
       company: 'Rotten Tomatoes',
     };
 
     return request(app)
       .post('/api/v1/reviewers')
-      .send(newReviewer2)
+      .send(newReviewer3)
       .then((res) => {
-        expect(res.body).toEqual({ id: expect.any(Number), ...newReviewer2 });
+        expect(res.body).toEqual({ id: expect.any(Number), ...newReviewer3 });
       });
   });
 
   it('get reviewer by ID', async () => {
-    await Reviewer.create(newReviewer);
+    const newReviewer9 = await Reviewer.create(newReviewer);
+    const newReview = {
+      rating: 1,
+      review: 'worst movie ever made',
+      ReviewerId: newReviewer9.id,
+    };
+    
+    const newTestReview = await Review.create(newReview);
+
     const res = await request(app).get('/api/v1/reviewers/1');
 
-    expect(res.body).toEqual({ id: expect.any(Number), ...newReviewer });
+    expect(res.body).toEqual({
+      id: expect.any(Number), 
+      ...newReviewer, 
+      Reviews: [{
+        id: newTestReview.id,
+        rating: newTestReview.rating,
+        review: newTestReview.review,
+        // ReviewFilm: newTestReview.film: {id, title}
+      }] 
+    });
   });
 
-  it('gets all reviewers', async () => {
+  it.skip('gets all reviewers', async () => {
     await Reviewer.create(newReviewer);
     await Reviewer.create(newReviewer2);
 
@@ -51,7 +77,7 @@ describe.skip('reviewers test', () => {
     ]);
   });
 
-  it('updates a Reviewer', async () => {
+  it.skip('updates a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',
@@ -69,7 +95,7 @@ describe.skip('reviewers test', () => {
       });
   });
 
-  it('deletes a Reviewer', async () => {
+  it.skip('deletes a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',
