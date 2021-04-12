@@ -45,4 +45,14 @@ describe('Review tests', () => {
         ])
       })
   })
+
+  it('deletes a review', () => {
+    Review.create(newReview);
+    
+    return request(app)
+      .delete('/api/v1/reviews/1')
+      .then((res) => {
+        expect(res.body).toEqual({ id: expect.any(Number), ...newReview })
+      })
+  })
 });
