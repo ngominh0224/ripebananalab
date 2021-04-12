@@ -18,7 +18,6 @@ const newReviewer2 = {
 
 describe('reviewers test', () => {
   beforeEach( async () => {
-    console.log('dropping tables!');
     await db.connectionManager.initPools()
     return await db.sync({ force: true });
   });

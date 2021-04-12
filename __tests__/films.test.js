@@ -26,8 +26,13 @@ const newFilm2 = {
 
 
 describe.skip('film routes', () => {
-  beforeEach(() => {
-    return db.sync({ force: true });
+  beforeEach( async () => {
+    await db.connectionManager.initPools()
+    return await db.sync({ force: true });
+  });
+
+  afterAll( async () => {
+    await db.close();
   })
 
   it('add a new film to the db', async () => {
