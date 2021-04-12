@@ -23,7 +23,7 @@ const newReviewer = {
   company: 'IMDB',
 }
 
-describe.skip('Review tests', () => {
+describe('Review tests', () => {
   beforeEach( async () => {
     await db.connectionManager.initPools()
     return db.sync({ force: true });
@@ -47,7 +47,6 @@ describe.skip('Review tests', () => {
     .send(newReview3)
     .then((res) => {
       expect(res.body).toEqual({ id: expect.any(Number), ...newReview3 });
-      console.log(newReview3)
     })
   });
 

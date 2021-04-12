@@ -11,10 +11,11 @@ const newReviewer = {
   name: 'Bob Doe',
   company: 'IMDB',
 };
-// const newReviewer2 = {
-//   name: 'Jane Lewis',
-//   company: 'Rotten Tomatoes',
-// };
+
+const newReviewer2 = {
+  name: 'Jane Lewis',
+  company: 'Rotten Tomatoes',
+};
 
 describe('reviewers test', () => {
   beforeEach( async () => {
@@ -27,7 +28,7 @@ describe('reviewers test', () => {
     await db.close();
   })
 
-  it.skip('adds a new reviewer to the db', () => {
+  it('adds a new reviewer to the db', () => {
     const newReviewer3 = {
       name: 'Jane Lewis',
       company: 'Rotten Tomatoes',
