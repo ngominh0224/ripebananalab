@@ -1,6 +1,5 @@
 require('../lib/models/associations');
 const db = require('../lib/utils/database');
-const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
@@ -11,14 +10,14 @@ const newReviewer = {
   name: 'Bob Doe',
   company: 'IMDB',
 };
-// const newReviewer2 = {
-//   name: 'Jane Lewis',
-//   company: 'Rotten Tomatoes',
-// };
+
+const newReviewer2 = {
+  name: 'Jane Lewis',
+  company: 'Rotten Tomatoes',
+};
 
 describe('reviewers test', () => {
   beforeEach( async () => {
-    console.log('dropping tables!');
     await db.connectionManager.initPools()
     return await db.sync({ force: true });
   });
@@ -27,7 +26,7 @@ describe('reviewers test', () => {
     await db.close();
   })
 
-  it.skip('adds a new reviewer to the db', () => {
+  it('adds a new reviewer to the db', () => {
     const newReviewer3 = {
       name: 'Jane Lewis',
       company: 'Rotten Tomatoes',
@@ -65,7 +64,7 @@ describe('reviewers test', () => {
     });
   });
 
-  it.skip('gets all reviewers', async () => {
+  it('gets all reviewers', async () => {
     await Reviewer.create(newReviewer);
     await Reviewer.create(newReviewer2);
 
@@ -77,7 +76,7 @@ describe('reviewers test', () => {
     ]);
   });
 
-  it.skip('updates a Reviewer', async () => {
+  it('updates a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',
@@ -95,7 +94,7 @@ describe('reviewers test', () => {
       });
   });
 
-  it.skip('deletes a Reviewer', async () => {
+  it('deletes a Reviewer', async () => {
     await Reviewer.create({
       name: 'Bob Doe',
       company: 'IMDB',

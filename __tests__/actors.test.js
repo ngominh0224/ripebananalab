@@ -11,9 +11,14 @@ const newActor = {
 };
 
 describe.skip('actor routes', () => {
-  beforeEach(() => {
-    return db.sync({ force: true });
+  beforeEach( async () => {
+    await db.connectionManager.initPools()
+    return await db.sync({ force: true });
   });
+
+  afterAll( async () => {
+    await db.close();
+  })
 
   it('adds a new actor to the db', () => {
     const newActor2 = {
