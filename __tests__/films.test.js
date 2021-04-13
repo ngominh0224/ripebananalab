@@ -1,19 +1,18 @@
 require('../lib/models/associations');
-const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const db = require('../lib/utils/database');
 const Film = require('../lib/models/Film');
 const Studio = require('../lib/models/Studio');
+const Actor = require('../lib/models/Actor');
 
 const newFilm = {
   title: 'Jurassic Park',
   StudioId: 1,
   released: 1993,
-  // cast: [
-  //   {role: 'Dr. Grant', actor: 1},
-  //   {role: 'Newman', actor: 2},
-  // ]
+  cast: [
+    {role: 'Dr. Grant', actor: 1},
+  ]
 };
 
 const newFilm2 = {
@@ -30,6 +29,12 @@ const newStudio = {
   name: 'Alchemy',
   state: 'Oregon',
   country: 'United States',
+};
+
+const newActor = {
+  name: 'Bob Loblaw',
+  dob: '1984-04-15',
+  pob: 'Timbuktu',
 };
 
 const newStudio2 = {
@@ -50,11 +55,26 @@ describe('film routes', () => {
 
   it('add a new film to the db', async () => {
     await Studio.create(newStudio);
-    const data = await request(app).post('/api/v1/films').send(newFilm2);
-    expect(data.body).toEqual({ id: expect.any(Number), ...newFilm2 });
+    const newTestActor = await Actor.create(newActor);
+
+    const data = await request(app).post('/api/v1/films').send(newFilm);
+
+    expect(data.body).toEqual({ 
+      id: expect.any(Number),
+      title: 'Jurassic Park',
+      StudioId: 1,
+      released: 1993,
+      cast: [{
+        'id': 1,
+        'role': 'Dr. Grant', 
+        actor: {
+          id: newTestActor.id,
+          name: newTestActor.name,}
+        }]
+       });
   });
 
-  it.skip('gets a film by id', async () => {
+  it('gets a film by id', async () => {
     await Film.create(newFilm2);
     const data = await request(app).get('/api/v1/films/1');
     expect(data.body).toEqual({ id: expect.any(Number), ...newFilm2 });
@@ -64,7 +84,9 @@ describe('film routes', () => {
     await Studio.create(newStudio);
     await Film.create(newFilm);
     await Film.create(newFilm2);
+
     const data = await request(app).get('/api/v1/films');
+
     expect(data.body).toEqual([
       { StudioId: 1,
         id: expect.any(Number), 
