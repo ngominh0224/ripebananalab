@@ -1,6 +1,9 @@
 require('./lib/models/associations');
 const app = require('./lib/app');
+require('./lib/models/associations')
+const db = require('./lib/utils/database');
 
+db.sync();
 const PORT = process.env.PORT || 7890;
 
 app.listen(PORT, () => {

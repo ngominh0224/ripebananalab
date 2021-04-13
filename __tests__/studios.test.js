@@ -15,10 +15,15 @@ const newStudio2 = {
   country: 'United States',
 };
 
-describe('studios test', () => {
-  beforeEach(() => {
-    return db.sync({ force: true });
+describe.skip('studios test', () => {
+  beforeEach( async () => {
+    await db.connectionManager.initPools()
+    return await db.sync({ force: true });
   });
+
+  afterAll( async () => {
+    await db.close();
+  })
 
   it('adds a new studio to the db', () => {
     const newStudio2 = {
