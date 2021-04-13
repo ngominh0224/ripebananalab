@@ -3,8 +3,9 @@ const db = require('../lib/utils/database');
 const request = require('supertest');
 const app = require('../lib/app');
 const Reviewer = require('../lib/models/Reviewer');
-const reviews = require('../lib/controllers/reviews');
 const Review = require('../lib/models/Review');
+const Film = require('../lib/models/Film');
+const Studio = require('../lib/models/Studio');
 
 const newReviewer = {
   name: 'Bob Doe',
@@ -14,6 +15,29 @@ const newReviewer = {
 const newReviewer2 = {
   name: 'Jane Lewis',
   company: 'Rotten Tomatoes',
+};
+
+const newFilm = {
+  title: 'Jurassic Park',
+  StudioId: 1,
+  released: 1993,
+  // cast: [
+  //   {role: 'Dr. Grant', actor: 1},
+  //   {role: 'Newman', actor: 2},
+  // ]
+};
+
+const newReview = {
+  rating: 3,
+  review: 'Pretty good movie',
+  FilmId: 1,
+  ReviewerId: 1, 
+};
+
+const newStudio = {
+  name: 'Alchemy',
+  state: 'Oregon',
+  country: 'United States',
 };
 
 describe('reviewers test', () => {
@@ -41,12 +65,9 @@ describe('reviewers test', () => {
   });
 
   it('get reviewer by ID', async () => {
-    const newReviewer9 = await Reviewer.create(newReviewer);
-    const newReview = {
-      rating: 1,
-      review: 'worst movie ever made',
-      ReviewerId: newReviewer9.id,
-    };
+    await Studio.create(newStudio);
+    const newTestFilm = await Film.create(newFilm);
+    await Reviewer.create(newReviewer);
 
     const newTestReview = await Review.create(newReview);
 
@@ -54,13 +75,16 @@ describe('reviewers test', () => {
 
     expect(res.body).toEqual({
       id: expect.any(Number),
-      ...newReviewer,
+      name: 'Bob Doe',
+      company: 'IMDB',
       Reviews: [
         {
           id: newTestReview.id,
           rating: newTestReview.rating,
           review: newTestReview.review,
-          // ReviewFilm: newTestReview.film: {id, title}
+          Film: {
+            id: newTestFilm.id, 
+            title: newTestFilm.title},
         },
       ],
     });
