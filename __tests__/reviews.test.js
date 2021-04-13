@@ -15,19 +15,19 @@ const newFilm = {
   title: 'Jurassic Park',
   StudioId: 1,
   released: 1993,
-  // cast: [
-  //   {role: 'Dr. Grant', actor: 1},
-  //   {role: 'Newman', actor: 2},
-  // ]
+  cast: [
+    {role: 'Dr. Grant', actor: 1},
+    {role: 'Newman', actor: 2},
+  ]
 };
 const newFilm2 = {
   title: 'Ready Player One',
   StudioId: 1,
   released: 2018,
-  // cast: [
-  //   {role: 'Parzival', actor: 1},
-  //   {role: 'Art3mis', actor: 2},
-  // ]
+  cast: [
+    {role: 'Parzival', actor: 1},
+    {role: 'Art3mis', actor: 2},
+  ]
 };
 
 const newStudio = {
