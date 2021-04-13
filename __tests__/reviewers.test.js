@@ -17,14 +17,14 @@ const newReviewer2 = {
 };
 
 describe('reviewers test', () => {
-  beforeEach( async () => {
-    await db.connectionManager.initPools()
+  beforeEach(async () => {
+    await db.connectionManager.initPools();
     return await db.sync({ force: true });
   });
 
-  afterAll( async () => {
+  afterAll(async () => {
     await db.close();
-  })
+  });
 
   it('adds a new reviewer to the db', () => {
     const newReviewer3 = {
@@ -47,20 +47,22 @@ describe('reviewers test', () => {
       review: 'worst movie ever made',
       ReviewerId: newReviewer9.id,
     };
-    
+
     const newTestReview = await Review.create(newReview);
 
     const res = await request(app).get('/api/v1/reviewers/1');
 
     expect(res.body).toEqual({
-      id: expect.any(Number), 
-      ...newReviewer, 
-      Reviews: [{
-        id: newTestReview.id,
-        rating: newTestReview.rating,
-        review: newTestReview.review,
-        // ReviewFilm: newTestReview.film: {id, title}
-      }] 
+      id: expect.any(Number),
+      ...newReviewer,
+      Reviews: [
+        {
+          id: newTestReview.id,
+          rating: newTestReview.rating,
+          review: newTestReview.review,
+          // ReviewFilm: newTestReview.film: {id, title}
+        },
+      ],
     });
   });
 
