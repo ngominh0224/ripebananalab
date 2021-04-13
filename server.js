@@ -1,3 +1,4 @@
+require('./lib/models/associations');
 const app = require('./lib/app');
 require('./lib/models/associations')
 const db = require('./lib/utils/database');
