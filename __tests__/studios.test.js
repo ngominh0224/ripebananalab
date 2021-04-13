@@ -1,8 +1,20 @@
+require('../lib/models/associations');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const db = require('../lib/utils/database');
 const Studio = require('../lib/models/Studio');
+const Film = require('../lib/models/Film');
+
+const newFilm = {
+  title: 'Jurassic Park',
+  StudioId: 1,
+  released: 1993,
+  // cast: [
+  //   {role: 'Dr. Grant', actor: 1},
+  //   {role: 'Newman', actor: 2},
+  // ]
+};
 
 const newStudio = {
   name: 'Alchemy',
@@ -15,7 +27,7 @@ const newStudio2 = {
   country: 'United States',
 };
 
-describe.skip('studios test', () => {
+describe('studios test', () => {
   beforeEach( async () => {
     await db.connectionManager.initPools()
     return await db.sync({ force: true });
@@ -42,9 +54,21 @@ describe.skip('studios test', () => {
 
   it('get studio by ID', async () => {
     await Studio.create(newStudio);
+    await Film.create(newFilm);
     const res = await request(app).get('/api/v1/studios/1');
 
-    expect(res.body).toEqual({ id: expect.any(Number), ...newStudio });
+    expect(res.body).toEqual({ 
+      id: expect.any(Number),
+      name: 'Alchemy',
+      state: 'Oregon',
+      country: 'United States',
+      Films: [{  
+        StudioId: 1,
+        title: 'Jurassic Park',
+        id: 1,
+        released: 1993
+      }]
+     });
   });
   
   it('gets all studios', async ()=>{

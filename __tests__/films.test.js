@@ -8,7 +8,7 @@ const Studio = require('../lib/models/Studio');
 
 const newFilm = {
   title: 'Jurassic Park',
-  // studio: 'Paramount',
+  StudioId: 1,
   released: 1993,
   // cast: [
   //   {role: 'Dr. Grant', actor: 1},
@@ -18,7 +18,7 @@ const newFilm = {
 
 const newFilm2 = {
   title: 'Ready Player One',
-  // studio: 'Paramount',
+  StudioId: 1,
   released: 2018,
   // cast: [
   //   {role: 'Parzival', actor: 1},
@@ -60,14 +60,22 @@ describe('film routes', () => {
     expect(data.body).toEqual({ id: expect.any(Number), ...newFilm2 });
   });
 
-  it.skip('gets all films', async () => {
+  it('gets all films', async () => {
     await Studio.create(newStudio);
     await Film.create(newFilm);
     await Film.create(newFilm2);
     const data = await request(app).get('/api/v1/films');
     expect(data.body).toEqual([
-      { id: expect.any(Number), ...newFilm },
-      { id: expect.any(Number), ...newFilm2 },
+      { StudioId: 1,
+        id: expect.any(Number), 
+        title: 'Jurassic Park',
+        Studio: {id:1, name: 'Alchemy'},
+        released: 1993,},
+      { StudioId: 1,
+        id: expect.any(Number),
+        title: 'Ready Player One',
+        Studio: {id: 1, name: 'Alchemy'},
+        released: 2018,},
     ]);
   });
 });
