@@ -100,10 +100,9 @@ describe('Review tests', () => {
             rating: 3,
             review: 'Pretty good movie',
             FilmId: 1,
-            Reviewer: {
-              id:1,
-              name: 'Bob Doe',
-              company: 'IMDB',
+            Film: {
+              id: 1,
+              title: 'Jurassic Park',
             }
         },
         { 
@@ -112,11 +111,11 @@ describe('Review tests', () => {
           rating: 5,
           review: 'I loved this movie',
           FilmId: 2,
-          Reviewer: {
-            id: 1,
-            name: 'Bob Doe',
-            company: 'IMDB',
+          Film: {
+            id: 2,
+            title: 'Ready Player One',
           }
+
       },
         ])
       })
